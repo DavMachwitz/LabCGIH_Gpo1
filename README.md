@@ -20,7 +20,7 @@ Este repositorio contiene los trabajos desarrollados a lo largo del curos, inclu
 
 ### Proyecto Final
 
-##Ingeniería en Computación
+## Ingeniería en Computación
 ### Facultad de Ingeniería - UNAM
 
 ---
