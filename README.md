@@ -6,7 +6,7 @@ Repositorio correspondiente a la clase de **Laboratorio de CGIH**
 ## Alumno
 David Nava
 
-##Descripción
+## Descripción
 
 Este repositorio contiene los trabajos desarrollados a lo largo del curos, incluyendo:
 - Previos
