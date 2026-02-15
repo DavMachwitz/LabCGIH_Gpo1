@@ -10,3 +10,5 @@ x64/
 *.VC.db
 *.VC.opendb
 *.user
+*.dll
+External Libraries/
