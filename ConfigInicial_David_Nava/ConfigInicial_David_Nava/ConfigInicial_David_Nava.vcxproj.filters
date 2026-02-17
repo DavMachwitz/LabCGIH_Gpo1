@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main_Dibujo2D.cpp">
+    <ClCompile Include="Practica2_David_Nava.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
