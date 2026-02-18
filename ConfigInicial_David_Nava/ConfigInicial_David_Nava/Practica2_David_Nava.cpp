@@ -26,7 +26,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Dibujo de Primitivas en 2D - David Nava", NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica2_David_Nava", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, resize);
 	
 	//Verificaci�n de errores de creacion  ventana
@@ -62,19 +62,19 @@ int main() {
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	float vertices[] = {
--		-0.02f,  0.87f, 0.0f,    1.0f,1.0f,1.0f,  // V0
+		-0.02f,  0.87f, 0.0f,    1.0f,1.0f,1.0f,  // V0
 		-0.06f, 0.84f, 0.0f,    1.0f,1.0f,1.0f,  // V1
 		0.0f, 0.8f, 0.0f,   1.0f,1.0f,1.0f,  //V2
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V3
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V4
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V5
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V6
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V7
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V8
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V9
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V10
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V11
-		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V12
+		-0.07f,  0.83f, 0.0f,   1.0f,1.0f,1.0f, //V3
+		-0.1f,  0.87f, 0.0f,   1.0f,1.0f,1.0f, //V4
+		-0.11f,  0.82f, 0.0f,   1.0f,1.0f,1.0f, //V5
+		-0.08f,  0.81f, 0.0f,   1.0f,1.0f,1.0f, //V6
+		-0.1f,  0.78f, 0.0f,   1.0f,1.0f,1.0f, //V7
+		-0.08f,  0.79f, 0.0f,   1.0f,1.0f,1.0f, //V8
+		-0.07f,  0.76f, 0.0f,   1.0f,1.0f,1.0f, //V9
+		-0.17f,  0.65f, 0.0f,   1.0f,1.0f,1.0f, //V10
+		-0.11f,  0.68f, 0.0f,   1.0f,1.0f,1.0f, //V11
+		-0.05f,  0.68f, 0.0f,   1.0f,1.0f,1.0f, //V12
 		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V13
 		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V14
 		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V15
@@ -127,8 +127,24 @@ int main() {
 		0.0f,  0.0f, 0.0f,   1.0f,1.0f,1.0f, //V62
 	};
 	unsigned int indices[] = {  // note that we start from 0!
-		3,2,1,// second Triangle
-		0,1,3,
+		0,1,// second Triangle
+		0,2,
+		1,2,
+		1,3,
+		3,4,
+		4,5,
+		3,6,
+		5,6,
+		5,7,
+		7,8,
+		6,8,
+		8,9,
+		9,2,
+		9,12,
+		7,10,
+		7,11,
+		10,11,
+		11,12,
 		
 	};
 
@@ -172,21 +188,29 @@ int main() {
 		glfwPollEvents();
 
 		// Render
-		// Clear the colorbuffer
+		// Clear the 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		ourShader.Use();
+		glBindVertexArray(VAO);
+
+		//Inicio Figura:
+		glDrawElements(GL_LINES, 36,GL_UNSIGNED_INT, 0);
 
 
+
+
+
+		//Fin Figura
 		// Draw our first triangle
-        ourShader.Use();
-        glBindVertexArray(VAO);
+        
 
 
         glPointSize(1);
-        glDrawArrays(GL_POINTS,0,4);
+        glDrawArrays(GL_POINTS,0,6);
         
         //glDrawArrays(GL_LINES,0,2);
-        glDrawArrays(GL_LINE_LOOP,0,3);
+        
         
         //glDrawArrays(GL_TRIANGLES,0,3);
         //glDrawElements(GL_TRIANGLES, 3,GL_UNSIGNED_INT,0);
