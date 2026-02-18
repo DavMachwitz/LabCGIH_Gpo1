@@ -62,10 +62,10 @@ int main() {
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	float vertices[] = {
--		-0.05f,  1.0f, 0.0f,    1.0f,0.0f,0.0f,  // top right
-		0.05f, 0.88f, 0.0f,    1.0f,1.0f,0.0f,  // bottom right
-		0.1f, 0.9f, 0.0f,   1.0f,0.0f,1.0f,  // bottom left
-		0.1f,  0.2f, 0.0f,   1.0f,1.0f,0.0f, // top left 
+-		-0.02f,  0.87f, 0.0f,    1.0f,0.0f,0.0f,  // top right
+		-0.06f, 0.84f, 0.0f,    1.0f,1.0f,0.0f,  // bottom right
+		0.0f, 0.8f, 0.0f,   1.0f,0.0f,1.0f,  // bottom left
+		0.0f,  0.0f, 0.0f,   1.0f,1.0f,0.0f, // top left 
 	};
 	unsigned int indices[] = {  // note that we start from 0!
 		3,2,1,// second Triangle
