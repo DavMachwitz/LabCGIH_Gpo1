@@ -1,5 +1,5 @@
 //Práctica 2						Nava Benítez David Emilio
-//20/02/2025						320291599
+//19/02/2025						320291599
 
 #include<iostream>
 
@@ -19,7 +19,7 @@ const GLint WIDTH = 800, HEIGHT = 600;
 
 int main() {
 	glfwInit();
-	//Verificaci�n de compatibilidad 
+	//Verificacion de compatibilidad 
 	/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
@@ -29,7 +29,7 @@ int main() {
 	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica2_David_Nava", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, resize);
 	
-	//Verificaci�n de errores de creacion  ventana
+	//Verificacion de errores de creacion  ventana
 	if (window== NULL) 
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -53,14 +53,10 @@ int main() {
 	std::cout << "> Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "> Renderer: " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "> SL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-
-
 	// Define las dimensiones del viewport
 	//glViewport(0, 0, screenWidth, screenHeight);
-
     Shader ourShader("Shader/core.vs", "Shader/core.frag");
-
-	// Set up vertex data (and buffer(s)) and attribute pointers
+	//Vertices Dibujo
 	float vertices[] = {
 		-0.02f,  0.87f, 0.0f,    1.0f,1.0f,1.0f,  // V0
 		-0.06f, 0.84f, 0.0f,    1.0f,1.0f,1.0f,  // V1
@@ -125,8 +121,9 @@ int main() {
 		0.08f,  0.09f, 0.0f,   1.0f,1.0f,1.0f, //V60
 		0.12f,  0.09f, 0.0f,   1.0f,1.0f,1.0f, //V61
 	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0,1,// second Triangle
+	//Indices para unirlos con lineas.
+	unsigned int indices[] = {  
+		0,1,
 		0,2,
 		1,2,
 		1,3,
@@ -237,11 +234,7 @@ int main() {
 		51,60,
 		61,45,
 		60,45,
-
-
 	};
-
-
 
 	GLuint VBO, VAO,EBO;
 	glGenVertexArrays(1, &VAO);
@@ -289,27 +282,8 @@ int main() {
 
 		//Inicio Figura:
 		glDrawElements(GL_LINES,222,GL_UNSIGNED_INT, 0);
-
-
-
-
-
 		//Fin Figura
-		// Draw our first triangle
-        
 
-
-        glPointSize(1);
-        glDrawArrays(GL_POINTS,0,6);
-        
-        //glDrawArrays(GL_LINES,0,2);
-        
-        
-        //glDrawArrays(GL_TRIANGLES,33,3);
-        //glDrawElements(GL_TRIANGLES, 3,GL_UNSIGNED_INT,0);
-
-        
-        
         glBindVertexArray(0);
     
 		// Swap the screen buffers
