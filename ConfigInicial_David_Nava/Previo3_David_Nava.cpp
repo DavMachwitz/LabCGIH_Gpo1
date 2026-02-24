@@ -213,25 +213,26 @@ int main() {
 		// Render
 		// Clear the colorbuffer
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 		// Draw our first triangle
 		ourShader.Use();
-		glm::mat4 model=glm::mat4(1);
-		glm::mat4 view=glm::mat4(1);
+		glm::mat4 model = glm::mat4(1);
+		glm::mat4 view = glm::mat4(1);
 		//5 Cubos
 		//Cubo 1
-	
-	    view = glm::translate(view, glm::vec3(0.0f,-5.0f,-12.0f));
-		model = glm::rotate( model, 0.5f, glm::vec3( 0.0f, 1.0f, 0.0f ) ); // use to compare orthographic and perspective projection
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+
+		view = glm::translate(view, glm::vec3(0.0f, -10.0f, -30.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -3.0f, 4.0f));
+		model = glm::rotate(model, 0.78f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		//view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2,200.0f ) ); // use with orthographic projection
-		
+
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
 		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
 		GLint projecLoc = glGetUniformLocation(ourShader.Program, "projection");
-		
+
 		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -239,37 +240,38 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		////Cubo 2
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, -12.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f)); 
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		////Cubo 3
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 2.0f, -12.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1.0f, -1.3f, 4.0f));
+		model = glm::rotate(model, 0.78f, glm::vec3(0.0f, 1.0f, 0.0f)); 
+		model = glm::rotate(model, 1.7f, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		////Cubo 4
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 6.0f, -12.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//////Cubo 3
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 2.0f, -12.0f));
+		//model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//////Cubo 4
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 6.0f, -12.0f));
+		//model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
-		////Cubo 5
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(0.0f, 12.0f, -12.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
+		//////Cubo 5
+		//model = glm::mat4(1);
+		//model = glm::translate(model, glm::vec3(0.0f, 12.0f, -12.0f));
+		//model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(16.0f, 16.0f, 16.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glBindVertexArray(0);
 
 
 
