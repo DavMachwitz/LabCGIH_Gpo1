@@ -1,5 +1,5 @@
 //Practica 3						Nava Benítez David Emilio
-//27 de febrero de 2026				320291599
+//26 de febrero de 2026				320291599
 
 #include<iostream>
 
@@ -32,7 +32,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Previo3_David_Nava", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica3_David_Nava", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
