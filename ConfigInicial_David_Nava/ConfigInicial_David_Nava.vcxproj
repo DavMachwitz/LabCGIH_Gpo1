@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Previo3_David_Nava.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Shader\core.frag" />
     <None Include="Shader\core.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main_Modelado.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
