@@ -1,5 +1,5 @@
-//Previo 4									Nava Benítez David Emilio
-//Fecha de entrega: 28 de febrero de 2026	320291599
+//Práctica 4									Nava Benítez David Emilio
+//Fecha de entrega:  de 2026	320291599
 
 #include<iostream>
 
@@ -80,54 +80,50 @@ int main() {
 
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
-
-	
-
-	// use with Perspective Projection
+	//Projection perspective
 	float vertices[] = {
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,//Front
-		0.5f, -0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
-		 0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  -0.5f, 0.5f, 0.0f, 0.0f,1.0f,
-      
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
-		0.5f,  0.5f, -0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f,  0.5f, 1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
-	};
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Front
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
 
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Back
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Right
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Left
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Bottom
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Top
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+	};
 
 
 
@@ -199,41 +195,15 @@ int main() {
 	
 
 		glBindVertexArray(VAO);
-	
+		//Tronco
 	    model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 1.8f, 0.5f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.1f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
 
-		//Pata 1		
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		//Pata 2
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		//Pata 3		
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		//Pata 4		
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
 		// Swap the screen buffers
 
 		glBindVertexArray(0);
@@ -252,21 +222,21 @@ int main() {
 	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
 		 glfwSetWindowShouldClose(window, true);
 	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.08f;
+		 movX += 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.08f;
+		 movX -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
 		 movY += 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
 		 movY -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.08f;
+		 movZ -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.08f;
+		 movZ += 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.4f;
+		 rot += 0.04f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.4f;
+		 rot -= 0.04f;
  }
 
 
