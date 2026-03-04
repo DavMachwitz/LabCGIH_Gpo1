@@ -125,33 +125,83 @@ int main() {
 		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
 	};
 
+	float vertices2[] = {
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Front
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Back
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Right
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f, // Left
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Bottom
+		 0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f, -0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f, // Top
+		 0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		 0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f,  0.5f,   0.45f, 0.30f, 0.15f,
+		-0.5f,  0.5f, -0.5f,   0.45f, 0.30f, 0.15f,
+	};
 
 
-	GLuint VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+
+	GLuint VBOs[2], VAOs[2];
+	glGenVertexArrays(2, VAOs);
+	glGenBuffers(2, VBOs);
 	//glGenBuffers(1, &EBO);
 
 	// Enlazar  Vertex Array Object
-	glBindVertexArray(VAO);
-
+	//Cubos cafes
+	glBindVertexArray(VAOs[0]);
 	//2.- Copiamos nuestros arreglo de vertices en un buffer de vertices para que OpenGL lo use
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// 3.Copiamos nuestro arreglo de indices en  un elemento del buffer para que OpenGL lo use
-	/*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);*/
-
-	// 4. Despues colocamos las caracteristicas de los vertices
 
 	//Posicion
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0);
 	glEnableVertexAttribArray(0);
-
 	//Color
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
+	//Cubos verdes
+	glBindVertexArray(VAOs[1]);
+	//2.- Copiamos nuestros arreglo de vertices en un buffer de vertices para que OpenGL lo use
+	glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
+
+	//Posicion
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	//Color
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
@@ -193,25 +243,45 @@ int main() {
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	
-
-		glBindVertexArray(VAO);
+		/////////////////////Cubos cafes ///////////////////////////
+		glBindVertexArray(VAOs[0]);
 		//Tronco
 	    model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.5f, 1.8f, 0.5f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.1f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
+		//Base del árbol
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.25f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.4f, 0.25f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.25f, -0.8f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.4f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -0.8f, -0.25f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.4f, 0.25f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-0.25f, -0.8f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.4f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		// Swap the screen buffers
-
-		glBindVertexArray(0);
+		glBindVertexArray(VAOs[2]);
 		glfwSwapBuffers(window);
 	
 	}
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAOs[2]);
+	glDeleteBuffers(1, &VBOs[2]);
 
 
 	glfwTerminate();
