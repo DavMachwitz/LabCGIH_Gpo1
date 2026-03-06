@@ -37,7 +37,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Previo4_David_Nava", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica4_David_Nava", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -171,7 +171,6 @@ int main() {
 	};
 
 	float vertices3[] = {
-		// Posiciones          // Colores (Escala de Blancos/Grises)
 		-0.5f, -0.5f,  0.5f,   0.95f, 0.95f, 0.95f, // Front (Blanco casi puro)
 		 0.5f, -0.5f,  0.5f,   0.95f, 0.95f, 0.95f,
 		 0.5f,  0.5f,  0.5f,   0.95f, 0.95f, 0.95f,
@@ -325,9 +324,9 @@ int main() {
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		/////////////////////Cubos cafes ///////////////////////////
+		///////////////////////Cubos cafes ///////////////////////////
 		glBindVertexArray(VAOs[0]);
-		//Tronco
+		////Tronco
 	    model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 0.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -436,7 +435,7 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//////////////////////////////// Cubos verdes ///////////////////////////////
+		////////////////////////////////// Cubos verdes ///////////////////////////////
 		glBindVertexArray(VAOs[1]);
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 1.7f, 0.0f));
@@ -444,7 +443,7 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		////Cruces de hojas laterales
+		//////Cruces de hojas laterales
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 1.7f, 0.86f));
@@ -579,12 +578,11 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
 		// Swap the screen buffers
-		glBindVertexArray(VAOs[2]);
 		glfwSwapBuffers(window);
 	
 	}
-	glDeleteVertexArrays(1, &VAOs[2]);
-	glDeleteBuffers(1, &VBOs[2]);
+	glDeleteVertexArrays(3, VAOs);
+	glDeleteBuffers(3, VBOs);
 
 
 	glfwTerminate();
