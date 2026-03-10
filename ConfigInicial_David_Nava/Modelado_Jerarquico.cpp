@@ -413,45 +413,44 @@ int main() {
 	return EXIT_SUCCESS;
  }
 
- void Inputs(GLFWwindow *window) {
-	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
+ void Inputs(GLFWwindow* window) {
+	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		 glfwSetWindowShouldClose(window, true);
-	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.008f;
-	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.008f;
-	 if (glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS)
-		 movY += 0.008f;
-	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		 movY -= 0.008f;
-	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.008f;
-	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.008f;
-	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		 hombro += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		 hombro -= 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-		 codo += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-		 codo -= 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-		 muneca += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-		 muneca -= 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-		 dedo1 += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-		 dedo1 -= 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
-		 dedo2 += 0.018f;
-	 if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-		 dedo2 -= 0.018f;
+
+	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) movX += 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) movX -= 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) movY += 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) movY -= 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) movZ -= 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) movZ += 0.008f;
+	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) rot += 0.018f;
+	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) rot -= 0.018f;
+
+
+	 // Hombro (Limitado -90 a 90)
+	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && hombro < 90.0f) hombro += 0.018f;
+	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && hombro > -90.0f) hombro -= 0.018f;
+
+	 // Codo (Limitado 0 a 100 grados)
+	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && codo < 100.0f) codo += 0.018f;
+	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && codo > 0.0f) codo -= 0.018f;
+
+	 // Muñeca (-45 a 45)
+	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS && muneca < 45.0f) muneca += 0.018f;
+	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS && muneca > -45.0f) muneca -= 0.018f;
+
+	 //// mano
+	 if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		 if (dedo1 > -80.0f) dedo1 -= 0.018f;
+		 if (dedo2 > -90.0f) dedo2 -= 0.018f;
+		 if (dedo3 > -70.0f) dedo3 -= 0.018f;
+	 }
+
+	 if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
+		 if (dedo1 < 0.0f) dedo1 += 0.018f;
+		 if (dedo2 < 0.0f) dedo2 += 0.018f;
+		 if (dedo3 < 0.0f) dedo3 += 0.018f;
+	 }
  }
 
 
