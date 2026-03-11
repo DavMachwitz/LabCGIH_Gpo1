@@ -1,5 +1,5 @@
-//Previo 5								Nava Benítez David Emilio
-//7 de marzo de 2026					320291599
+//Práctica 5								Nava Benítez David Emilio
+// 10 de marzo de 2026						320291599
 
 #include<iostream>
 #include <GL/glew.h>
@@ -42,7 +42,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Modelado jerarquico - Previo5_David_Nava", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Modelado jerarquico - Practica5_David_Nava", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -242,7 +242,7 @@ int main() {
 		color = glm::vec3(1.0f, 0.5f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 0, 36);//D
 
 		// Falange 2
 		model = glm::translate(modelTemp, glm::vec3(0.1f, 0.0f, 0.0f));
@@ -253,7 +253,7 @@ int main() {
 		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 0, 36);//E
 
 		// Falange 3
 		model = glm::translate(modelTemp2, glm::vec3(0.1f, 0.0f, 0.0f));
@@ -264,7 +264,7 @@ int main() {
 		color = glm::vec3(1.0f, 0.87f, 0.94f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 0, 36);//F
 
 
 		///////////////////// DEDO ANULAR /////////////////////
@@ -277,7 +277,7 @@ int main() {
 		color = glm::vec3(1.0f, 0.5f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 0, 36);//G
 
 		// Falange 2
 		model = glm::translate(modelTemp, glm::vec3(0.1f, 0.0f, 0.0f));
