@@ -1,0 +1,50 @@
+# Blender MTL File: 'Car.mtl' editado
+# Material Count: 8
+
+newmtl Lights
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl Material
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+map_Kd textura_car.jpg
+
+newmtl Numplate
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl TyreMid
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl Tyres
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl Windows
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
+
+newmtl body
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd textura_car.jpg
