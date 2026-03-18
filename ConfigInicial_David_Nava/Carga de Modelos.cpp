@@ -1,5 +1,5 @@
-//Previo 6                  Nava Benítez David Emilio
-// 15 de marzo de 2026      320291599
+//Practica 6                  Nava Benítez David Emilio
+// 20 de marzo de 2026      320291599
 // Std. Includes
 #include <string>
 
@@ -38,6 +38,7 @@ Camera camera( glm::vec3( 0.0f, 0.0f, 3.0f ) );
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
+bool mouseCaptured = false;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
@@ -56,7 +57,7 @@ int main( )
     glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
     
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Carga de modelos y camara sintetica - Previo6_David_Nava", nullptr, nullptr );
+    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Carga de modelos y camara sintetica - Practica6_David_Nava", nullptr, nullptr );
     
     if ( nullptr == window )
     {
@@ -94,10 +95,10 @@ int main( )
     
     // Setup and compile our shaders
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
-    
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     // Load models
     Model dog((char*)"Models/RedDog.obj");
-    Model car((char*)"Models/Car.obj");
+    Model office((char*)"Models/Practica6/InteriorHouse.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -123,22 +124,26 @@ int main( )
         glm::mat4 view = camera.GetViewMatrix();
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-        // Draw the loaded model
+        //Modelo de oficina
         glm::mat4 model(1);
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
-        
+        office.Draw(shader);
+        // Draw the loaded model
+        /*model=glm::mat4(1);
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dog.Draw(shader);*/
+        /*
         model = glm::translate(model, glm::vec3(3.0f, 0.2f, 0.0f));
         model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+        dog.Draw(shader);*/
 
-        model = glm::mat4(1);
+        /*model = glm::mat4(1);
         model = glm::translate(model, glm::vec3(-2.5f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        car.Draw(shader);
+        car.Draw(shader);*/
         
 
         // Swap the buffers
@@ -178,45 +183,88 @@ void DoMovement( )
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mode )
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-    if ( GLFW_KEY_ESCAPE == key && GLFW_PRESS == action )
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     {
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    }
-    
-    if ( key >= 0 && key < 1024 )
-    {
-        if ( action == GLFW_PRESS )
-        {
-            keys[key] = true;
-        }
-        else if ( action == GLFW_RELEASE )
-        {
-            keys[key] = false;
-        }
+        // Al presionar ESC, liberamos el mouse y dejamos de mover la cámara
+        mouseCaptured = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
- 
+    if (key == GLFW_KEY_M && action == GLFW_PRESS)
+    {
+        // Al presionar M, capturamos el mouse para mover la cámara
+        mouseCaptured = true;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        firstMouse = true; // Reiniciamos para evitar saltos bruscos al activar
+    }
 
- 
+    // ... tu código actual de las teclas WASD ...
+    if (key >= 0 && key < 1024) {
+        if (action == GLFW_PRESS) keys[key] = true;
+        else if (action == GLFW_RELEASE) keys[key] = false;
+    }
 }
+//void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mode )
+//{
+//    if ( GLFW_KEY_ESCAPE == key && GLFW_PRESS == action )
+//    {
+//        glfwSetWindowShouldClose(window, GL_TRUE);
+//    }
+//    
+//    if ( key >= 0 && key < 1024 )
+//    {
+//        if ( action == GLFW_PRESS )
+//        {
+//            keys[key] = true;
+//        }
+//        else if ( action == GLFW_RELEASE )
+//        {
+//            keys[key] = false;
+//        }
+//    }
+//
+// 
+//
+// 
+//}
 
-void MouseCallback( GLFWwindow *window, double xPos, double yPos )
+void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
-    if ( firstMouse )
+    // SI NO hemos capturado el mouse con 'M', no hacemos nada
+    if (!mouseCaptured) return;
+
+    if (firstMouse)
     {
         lastX = xPos;
         lastY = yPos;
         firstMouse = false;
     }
-    
+
     GLfloat xOffset = xPos - lastX;
-    GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
-    
+    GLfloat yOffset = lastY - yPos;
+
     lastX = xPos;
     lastY = yPos;
-    
-    camera.ProcessMouseMovement( xOffset, yOffset );
-}
 
+    camera.ProcessMouseMovement(xOffset, yOffset);
+}
+//void MouseCallback( GLFWwindow *window, double xPos, double yPos )
+//{
+//    if ( firstMouse )
+//    {
+//        lastX = xPos;
+//        lastY = yPos;
+//        firstMouse = false;
+//    }
+//    
+//    GLfloat xOffset = xPos - lastX;
+//    GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
+//    
+//    lastX = xPos;
+//    lastY = yPos;
+//    
+//    camera.ProcessMouseMovement( xOffset, yOffset );
+//}
+//
