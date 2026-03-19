@@ -92,6 +92,10 @@ int main( )
     Model dog((char*)"Models/RedDog.obj");
     Model office((char*)"Models/Practica6/Entorno/InteriorHouse.obj");
     Model table((char*)"Models/Practica6/Mesa/Table.obj");
+    Model paper((char*)"Models/Practica6/Papeleria/Holder_and_shelf.obj");
+    Model chair((char*)"Models/Practica6/Silla/office chair.obj");
+    Model bookcase((char*)"Models/Practica6/Librero/bookcase.obj");
+    Model books((char*)"Models/Practica6/Books/bookpack_001_obj.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
     // Game loop
@@ -122,13 +126,39 @@ int main( )
         office.Draw(shader);
         //Modelo de mesa
         model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(0.7f, 0.02f, 1.1f));
+        model = glm::translate(model, glm::vec3(0.45f, 0.01f, 0.8f));
         model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         table.Draw(shader);
-        
-        
+        //Modelo papeleria
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.37f, 0.3f, 0.84f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        paper.Draw(shader);
+        //Modelo Silla
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.75f, -0.085f, 0.5f));
+        model = glm::rotate(model, 0.78f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        chair.Draw(shader);
+        //Modelo librero
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 1.5f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(shader);
+        //Modelo libros
+        model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(0.05f, 0.0f, 1.5f));
+        //model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        books.Draw(shader);
 
         // Swap the buffers
         glfwSwapBuffers( window );
