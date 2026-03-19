@@ -151,18 +151,38 @@ int main( )
         model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         chair.Draw(shader);
-        //Modelo librero
+        //Modelo libreros
         model = glm::mat4(1);
         model = glm::translate(model, glm::vec3(0.05f, 0.0f, 1.5f));
         model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         bookcase.Draw(shader);
+        
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 2.0f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(shader);
+
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 2.5f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(shader);
         //Modelo libros
         model = glm::mat4(1);
-        //model = glm::translate(model, glm::vec3(0.05f, 0.0f, 1.5f));
-        //model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));
+        model = glm::translate(model, glm::vec3(0.05f, 0.67f, 1.63f));
+        model = glm::rotate(model, 1.57f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.0005f, 0.0005f, 0.0005f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        books.Draw(shader);
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.67f, 1.55f));
+        model = glm::rotate(model, 1.57f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.0005f, 0.0005f, 0.0005f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         books.Draw(shader);
         //Cama perrito
@@ -187,6 +207,13 @@ int main( )
         model = glm::mat4(1);
         model = glm::translate(model, glm::vec3(1.0f, -0.015f, 1.55f));
         model = glm::rotate(model, -0.78f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.004f, 0.004f, 0.004f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        sofa.Draw(shader);
+
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.0f, -0.015f, 2.19f));
+        model = glm::rotate(model, -2.356f, glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.004f, 0.004f, 0.004f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         sofa.Draw(shader);
