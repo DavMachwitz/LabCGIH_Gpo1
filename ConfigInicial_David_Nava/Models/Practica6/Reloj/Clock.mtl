@@ -1,0 +1,16 @@
+# Blender 3.3.0 MTL File: 'clock.blend'
+# www.blender.org
+
+newmtl Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Diff_1k.png
+map_Ns Rough_1k.png
+map_refl Metallic_1k.png
+map_Bump Norm_1k.png
