@@ -1,0 +1,16 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 14.05.2021 14:13:39
+
+newmtl pet_bed_Mat
+	Ns 9.999999
+	Ni 1.500000
+	d 1.000000 
+	illum 2
+	Ka 1.000000 1.000000 1.000000
+	Kd 1.000000 1.000000 1.000000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Kd pet_bed_Mat_Diffuse.png
+	map_Ks pet_bed_Mat_Specular.png
+	map_bump pet_bed_Mat_Normal.png
+	bump pet_bed_Mat_Normal.png
