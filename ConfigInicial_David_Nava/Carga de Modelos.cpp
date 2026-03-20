@@ -99,8 +99,8 @@ int main( )
     Model books((char*)"Models/Practica6/Books/bookpack_001_obj.obj");
     Model dogbed((char*)"Models/Practica6/DogBed/pet_bed.obj");
     Model sofa((char*)"Models/Practica6/Sillon/armchair.obj");
-    Model clock((char*)"Models/Practica6/Reloj/Clock.obj");
     Model anotherTable((char*)"Models/Practica6/Table/ASSET.obj");
+    Model clock((char*)"Models/Practica6/Reloj/Clock.obj");
     Model cuadro((char*)"Models/Practica6/Cuadro/SM_Frame_Ornate_01.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
@@ -217,6 +217,12 @@ int main( )
         model = glm::scale(model, glm::vec3(0.004f, 0.004f, 0.004f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         sofa.Draw(shader);
+        //Mesita
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.15f, 0.0f, 1.87f));
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        anotherTable.Draw(shader);
         //Reloj
         model = glm::mat4(1);
         model = glm::translate(model, glm::vec3(0.61f, 0.75f, 2.8f));
@@ -224,12 +230,6 @@ int main( )
         model = glm::scale(model, glm::vec3(0.095f, 0.095f, 0.095f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         clock.Draw(shader);
-        //Mesita
-        model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(1.15f, 0.0f, 1.87f));
-        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        anotherTable.Draw(shader);
         //Cuadro
         model = glm::mat4(1);
         model = glm::translate(model, glm::vec3(1.5f, 0.75f, 2.8f));
