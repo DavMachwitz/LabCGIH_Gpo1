@@ -1,5 +1,5 @@
-//Previo 7					Nava Benitez David Emilio
-//21 de marzo de 2026		320291599 
+//Practica 7					Nava Benitez David Emilio
+//27 de marzo de 2026		320291599 
 #include <iostream>
 #include <cmath>
 
