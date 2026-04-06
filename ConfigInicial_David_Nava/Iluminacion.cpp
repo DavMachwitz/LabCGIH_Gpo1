@@ -37,11 +37,11 @@ Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
-
+bool mouseCaptured = false;
 
 // Light attributes
 glm::vec3 lightPos(0.5f, 0.5f, 2.5f);
-glm::vec3 light2Pos(-2.0f, 1.5f, -1.0f);
+glm::vec3 light2Pos(0.0f, 0.0f, 0.0f);
 float movelightPos = 0.0f;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
@@ -49,7 +49,7 @@ float rot = 0.0f;
 bool activanim = false;
 
 
-bool mouseCaptured = false;
+
 
 int main()
 {
@@ -107,8 +107,19 @@ int main()
 
 
     // Load models
-    Model red_dog((char*)"Models/RedDog.obj");
-    Model korgi((char*)"Models/Corgi.obj");
+    Model dog((char*)"Models/RedDog.obj");
+    Model corgi((char*)"Models/Corgi.obj");
+    Model office((char*)"Models/Practica6/Entorno/InteriorHouse.obj");
+    Model table((char*)"Models/Practica6/Mesa/Table.obj");
+    Model paper((char*)"Models/Practica6/Papeleria/Holder_and_shelf.obj");
+    Model chair((char*)"Models/Practica6/Silla/office chair.obj");
+    Model bookcase((char*)"Models/Practica6/Librero/bookcase.obj");
+    Model books((char*)"Models/Practica6/Books/bookpack_001_obj.obj");
+    Model dogbed((char*)"Models/Practica6/DogBed/pet_bed.obj");
+    Model sofa((char*)"Models/Practica6/Sillon/armchair.obj");
+    Model anotherTable((char*)"Models/Practica6/Table/ASSET.obj");
+    Model clock((char*)"Models/Practica6/Reloj/Clock.obj");
+    Model cuadro((char*)"Models/Practica6/Cuadro/SM_Frame_Ornate_01.obj");
     glm::mat4 projection = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 
     float vertices[] = {
@@ -228,9 +239,9 @@ int main()
 
         //luz dos
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), light2Pos.x, light2Pos.y, light2Pos.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.5f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.1f, 0.2f, 0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.5f, 0.2f, 0.4f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.3f, 0.3f, 0.3f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.3f, 0.3f, 0.3f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.0f, 0.0f, 0.0f);
 
 
 
@@ -240,27 +251,130 @@ int main()
 
         // Set material properties
         glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 0.5f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0.8f, 0.8f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 1.0f, 1.0f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 0.8f);
 
 
 
         // Draw the loaded model
-        glm::mat4 model(1);
-        model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
-        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         
        
         //glDrawArrays(GL_TRIANGLES, 0, 36);
-        red_dog.Draw(lightingShader);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.0085f, 0.0085f, 0.0085f));
+       //Modelo de oficina
+        glm::mat4 model(1);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        korgi.Draw(lightingShader);
-        glBindVertexArray(VAO);
+        office.Draw(lightingShader);
+        //Modelo de mesa
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.45f, 0.01f, 0.8f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        table.Draw(lightingShader);
+        //Modelo papeleria
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.37f, 0.3f, 0.84f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        paper.Draw(lightingShader);
+        //Modelo Silla
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.75f, -0.085f, 0.5f));
+        model = glm::rotate(model, 0.78f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        chair.Draw(lightingShader);
+        //Modelo libreros
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 1.5f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(lightingShader);
 
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 2.0f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(lightingShader);
+
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.0f, 2.5f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        bookcase.Draw(lightingShader);
+        //Modelo libros
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.67f, 1.63f));
+        model = glm::rotate(model, 1.57f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.0005f, 0.0005f, 0.0005f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        books.Draw(lightingShader);
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.05f, 0.67f, 1.55f));
+        model = glm::rotate(model, 1.57f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.0005f, 0.0005f, 0.0005f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        books.Draw(lightingShader);
+        //Cama perrito
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.4f, 0.0f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dogbed.Draw(lightingShader);
+        //Perrito Original
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.4f, 0.19f, 0.2f));
+        model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dog.Draw(lightingShader);
+        //Corgi
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.52f, 0.24f, 0.53f));
+        model = glm::scale(model, glm::vec3(0.0015f, 0.0015f, 0.0015f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        corgi.Draw(lightingShader);
+        //Sofa
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.0f, -0.015f, 1.55f));
+        model = glm::rotate(model, -0.78f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.004f, 0.004f, 0.004f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        sofa.Draw(lightingShader);
+
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.0f, -0.015f, 2.19f));
+        model = glm::rotate(model, -2.356f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.004f, 0.004f, 0.004f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        sofa.Draw(lightingShader);
+        //Mesita
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.15f, 0.0f, 1.87f));
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        anotherTable.Draw(lightingShader);
+        //Reloj
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(0.61f, 0.75f, 2.8f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.095f, 0.095f, 0.095f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        clock.Draw(lightingShader);
+        //Cuadro
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(1.5f, 0.75f, 2.8f));
+        model = glm::rotate(model, 3.1415f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.009f, 0.009f, 0.009f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        cuadro.Draw(lightingShader);
+        glBindVertexArray(VAO);
 
         lampshader.Use();
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
