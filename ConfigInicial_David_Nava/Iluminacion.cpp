@@ -1,5 +1,5 @@
 //Practica 8                      Nava Benítez David Emilio
-// 30 de marzo de 2026          320291599
+//7 de abril de 2026          320291599
 // Std. Includes
 #include <string>
 
@@ -67,7 +67,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Materiales e Iluminacion - Previo8_David_Nava", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Materiales e Iluminacion - Practica8_David_Nava", nullptr, nullptr);
 
     if (nullptr == window)
     {
@@ -173,7 +173,7 @@ int main()
         glm::mat4 sunMat = glm::rotate(glm::mat4(1.0f), tiempo, glm::vec3(0.0f, 0.0f, 1.0f));
         lightPos = glm::vec3(sunMat * glm::vec4(orbita, 0.0f, 0.0f, 1.0f));
 
-        // 3. Posición de la Luna (Opuesta al sol, sumamos 180 grados)
+        // Posición de la Luna 
         glm::mat4 moonMat = glm::rotate(glm::mat4(1.0f), tiempo + glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         light2Pos = glm::vec3(moonMat * glm::vec4(orbita, 0.0f, 0.0f, 1.0f));
 
@@ -202,9 +202,9 @@ int main()
             glClearColor(0.02f, 0.02f, 0.08f, 1.0f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.0f, 0.0f, 0.0f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"),0.0f, 0.0f, 0.0f);
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.0f, 0.0f, 0.0f);
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.0f, 0.0f, 0.0f);// Sol apagado
 
-            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.1f, 0.1f, 0.2f); // Sol apagado
+            glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.1f, 0.1f, 0.2f); 
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.8f, 0.8f, 1.0f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 1.0f, 1.0f, 1.0f); 
         }
@@ -228,9 +228,6 @@ int main()
 
 
         // Draw the loaded model
-        
-       
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
        //Modelo de oficina
         glm::mat4 model(1);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
