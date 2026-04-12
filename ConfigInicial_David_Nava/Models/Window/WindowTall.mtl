@@ -1,0 +1,66 @@
+# Blender 3.6.5 MTL File: 'None'
+# www.blender.org
+
+newmtl HandleHolderWT
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl HandleWT
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl InnerFrameWT
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl OuterFrameWT
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl WindowLowerWT
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 2
+map_Kd Windows_WindowLowerWT_BaseColor.png
+map_Ns Windows_WindowLowerWT_Roughness.png
+map_refl Windows_WindowLowerWT_Metallic.png
+map_d Windows_WindowLowerWT_Opacity.png
+map_Bump Windows_WindowLowerWT_Normal.png
+
+newmtl WindowUpperWT
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 2
+map_Kd Windows_WindowUpperWT_BaseColor.png
+map_Ns Windows_WindowUpperWT_Roughness.png
+map_refl Windows_WindowUpperWT_Metallic.png
+map_d Windows_WindowUpperWT_Opacity.png
+map_Bump Windows_WindowUpperWT_Normal.png
