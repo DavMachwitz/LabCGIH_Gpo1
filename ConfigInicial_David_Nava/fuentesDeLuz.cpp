@@ -121,7 +121,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Fuentes de luz - Previo9_David_Nava", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Fuentes de luz - Practica9_David_Nava", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -155,7 +155,7 @@ int main()
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-
+	Shader shader("Shader/modelLoading.vs", "Shader/modelLoading.frag");
 	Shader lightingShader("Shader/lighting.vs", "Shader/lighting.frag");
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 	
@@ -175,6 +175,7 @@ int main()
 	Model anotherTable((char*)"Models/Practica6/Table/ASSET.obj");
 	Model clock((char*)"Models/Practica6/Reloj/Clock.obj");
 	Model cuadro((char*)"Models/Practica6/Cuadro/SM_Frame_Ornate_01.obj");
+	Model moon((char*)"Models/Prac8/moon.obj");
 	
 
 
@@ -235,7 +236,7 @@ int main()
 
 
 		// Directional light
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), 0.12f, 0.12f, 0.12f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"),0.15f,0.15f,0.15f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.2f, 0.2f, 0.2f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"),0.3f, 0.3f, 0.3f);
@@ -302,7 +303,7 @@ int main()
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));
 
 		// Set material properties
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 5.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 0.0f);
 
 		// Create camera transformations
 		glm::mat4 view;
@@ -435,7 +436,10 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		cuadro.Draw(lightingShader);
 
-		//Cargndo modelos para fuentes de luz
+		//Cargando modelos para fuentes de luz
+		
+
+		//Spotlight
 		model = glm::mat4(1);
 		model = glm::translate(model, glm::vec3(1.8f, 0.0f, 0.2f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -449,7 +453,14 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    chandelier.Draw(lightingShader);
 		glBindVertexArray(0);
-	
+
+		//Directional Light
+		shader.Use();
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-2.0f, 8.0f, -5.0f));
+		model = glm::scale(model, glm::vec3(0.5f));
+		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		moon.Draw(shader);
 
 		// Also draw the lamp object, again binding the appropriate shader
 		lampShader.Use();
@@ -458,13 +469,15 @@ int main()
 		viewLoc = glGetUniformLocation(lampShader.Program, "view");
 		projLoc = glGetUniformLocation(lampShader.Program, "projection");
 
-		// Set matrices
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		model = glm::mat4(1);
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//// Set matrices
+		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		//model = glm::mat4(1);
+		//model = glm::translate(model, lightPos);
+		//model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//
 		// Draw the light object (using light's vertex attributes)
 		//for (GLuint i = 0; i < 4; i++)
 		//{
