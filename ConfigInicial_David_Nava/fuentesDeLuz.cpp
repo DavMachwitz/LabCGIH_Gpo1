@@ -1,5 +1,5 @@
-//Previo 9						Nava Benítez David Emilio
-//11 de abril de 2026			320291599
+//Practica 9						Nava Benítez David Emilio
+//15 de abril de 2026			320291599
 
 #include <iostream>
 #include <cmath>
