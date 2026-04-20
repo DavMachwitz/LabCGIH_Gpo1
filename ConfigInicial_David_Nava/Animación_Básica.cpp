@@ -1,4 +1,4 @@
-//Previo9					Nava Benitez David Emilio
+//Practica 10				Nava Benitez David Emilio
 //18 de abril de 2026		320291599
 #include <iostream>
 #include <cmath>
@@ -35,7 +35,7 @@ void Animation();
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
-
+bool mouseCaptured = false;
 // Camera
 Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
 GLfloat lastX = WIDTH / 2.0;
@@ -113,9 +113,12 @@ float lim2 = 2.0f;
 //Animacion
 float orbitaDog = 0.0f;
 float orbitaBall = 180.0f;
-float orbita = 4.0f;
-float speed = 50.0f;
+float orbita = 1.0f;
+float speed = 75.0f;
+float alturaNariz = 0.05f;
+float rotPerroImpacto = 0.0f;
 
+float ballCorrectZ = -0.45f;
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -294,10 +297,17 @@ int main()
 		//Carga de modelo 
         view = camera.GetViewMatrix();	
 		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
 
 		model = glm::mat4(1);
+		float dogX = orbita * cos(glm::radians(orbitaDog));
+		float dogZ = orbita * sin(glm::radians(orbitaDog));
+		model = glm::translate(model, glm::vec3(dogX, 0.0f, dogZ));
+		model = glm::rotate(model, glm::radians(-orbitaDog), glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(-orbitaDog + 180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-rotPerroImpacto), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
@@ -305,8 +315,10 @@ int main()
 		model = glm::mat4(1);
 		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		model = glm::translate(model, glm::vec3(0.0f, movBall, 0.0f));
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		float ballX = orbita * cos(glm::radians(orbitaBall));
+		float ballZ = orbita * sin(glm::radians(orbitaBall));
+		model = glm::translate(model, glm::vec3(ballX, movBall + alturaNariz, ballZ + ballCorrectZ));
+		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(1.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -421,7 +433,16 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 {
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
 	{
-		glfwSetWindowShouldClose(window, GL_TRUE);
+		mouseCaptured = false;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);;
+	}
+	if (key == GLFW_KEY_M && action == GLFW_PRESS)
+	{
+		// Al presionar M, capturamos el mouse para mover la cámara
+		mouseCaptured = true;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		firstMouse = true; // Reiniciamos para evitar saltos bruscos al activar
 	}
 
 	if (key >= 0 && key < 1024)
@@ -460,44 +481,33 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 
 	}
 }
-//Implementamos la animacion extra al mismo tiempo que rota
+
 void Animation() {
-	if (AnimBall)
-	{
-		// Rotación existente
+	if (AnimBall) {
 		orbitaDog += speed * deltaTime;
-		orbitaDog += speed * deltaTime;
+		orbitaBall -= speed * deltaTime;
 
 		if (orbitaDog > 360.0f) orbitaDog -= 360.0f;
 		if (orbitaBall < 0.0f) orbitaBall += 360.0f;
+
+		float anguloRelativo = orbitaDog - orbitaBall;
+
+		float anguloFase = 27.0f;
+		float argumento = glm::radians((anguloRelativo + anguloFase) / 2.0f);
+
+		float baseRebote = abs(sin(argumento));
+		movBall = pow(baseRebote, 0.6f) * 2.5f;
+
+		rotPerroImpacto = cos(argumento) * 20.0f;
+
 		
-		float dif = abs(orbitaDog - (orbitaBall > 0 ? orbitaBall : orbitaBall + 360.0f));
-		movBall = abs(sin(glm::radians(orbitaDog * 2.0f))) * 1.5f;
-		rotBall += 5.0f;
 	}
-	else
-	{
-		//rotBall = 0.0f;
-	}
-	if (AnimBall2) {
-		if (sube) {
-			movBall += 0.001f;
-			//Como referencia
-			lim2 = pointLightPositions[0].y;
-			if (movBall >= lim2) sube = false;
-		}
-		else {
-			movBall -= 0.001f;
-			if (movBall <= lim1) sube = true;
-		}
-	}else{
-		//movBall = 0.0f;
-	}
-	
 }
 
-void MouseCallback(GLFWwindow *window, double xPos, double yPos)
+void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
+	if (!mouseCaptured) return;
+
 	if (firstMouse)
 	{
 		lastX = xPos;
@@ -506,7 +516,7 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	}
 
 	GLfloat xOffset = xPos - lastX;
-	GLfloat yOffset = lastY - yPos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat yOffset = lastY - yPos;
 
 	lastX = xPos;
 	lastY = yPos;

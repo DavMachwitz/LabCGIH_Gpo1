@@ -1,4 +1,4 @@
-//Practica 9						Nava Benítez David Emilio
+//Practica 10						Nava Benítez David Emilio
 //15 de abril de 2026			320291599
 
 #include <iostream>
