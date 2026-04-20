@@ -110,7 +110,11 @@ float movBall = 0.0f;
 bool sube = true;
 float lim1 = 0.0f;
 float lim2 = 2.0f;
-
+//Animacion
+float orbitaDog = 0.0f;
+float orbitaBall = 180.0f;
+float orbita = 4.0f;
+float speed = 50.0f;
 
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
@@ -461,10 +465,15 @@ void Animation() {
 	if (AnimBall)
 	{
 		// Rotación existente
-		rotBall += 0.02f;
-		
-		
+		orbitaDog += speed * deltaTime;
+		orbitaDog += speed * deltaTime;
 
+		if (orbitaDog > 360.0f) orbitaDog -= 360.0f;
+		if (orbitaBall < 0.0f) orbitaBall += 360.0f;
+		
+		float dif = abs(orbitaDog - (orbitaBall > 0 ? orbitaBall : orbitaBall + 360.0f));
+		movBall = abs(sin(glm::radians(orbitaDog * 2.0f))) * 1.5f;
+		rotBall += 5.0f;
 	}
 	else
 	{
