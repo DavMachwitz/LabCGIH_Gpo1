@@ -1,5 +1,5 @@
 //Previo 11							Nava Benítez David Emilio
-//25/04/2026						320291599
+//27/04/2026						320291599
 #include <iostream>
 #include <cmath>
 
@@ -113,9 +113,9 @@ float head = 0.0f;
 float tail = 0.0f;
 glm::vec3 dogPos (0.0f,0.0f,0.0f);
 int dogAnim = 0;
-float anguloVuelta;
 float dogRot = 0.0f;
 bool step = false;
+float rotationSpeed = 75.0f;
 
 
 
@@ -135,7 +135,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion maquina de estados - Previo11_David_Nava", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion maquina de estados - Practica11_David_Nava", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -519,6 +519,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	
 }
 void Animation() {
+	
 	if (AnimBall)
 	{
 		rotBall += 0.4f;
@@ -558,74 +559,53 @@ void Animation() {
 	}
 	switch (dogAnim) {
 	case 1: //caminata en +Z
-			dogPos.z += 0.0001;
-			if (dogPos.z >= 2.2f) dogAnim = 2;
-			break;
-	case 2://Vuelta hacia -X (+90°)
-		dogRot -= 1.0f;
-		head = 10.0f;
-		if (dogRot >= -90.0f) {dogRot = -90.0f; dogAnim = 3;}
+		dogPos.z += 0.001;
+		if (dogPos.z >= 2.2f) dogAnim = 2;
+		break;
+	case 2://Vuelta hacia -X (-90°)
+		dogRot -= rotationSpeed * deltaTime;
+		head = 25.0f;
+		if (dogRot <= -90.0f) {dogRot = -90.0f; dogAnim = 3; head = 0.0f;}
 		break;
 	case 3://caminata en -X
-		dogPos.x -= 0.0001f;
+		dogPos.x -= 0.001f;
 		if (dogPos.x <= -2.2f) dogAnim = 4;
 		break;
-	//case 4: // Giro hacia -Z (+90°)
-	//	dogRot += 1.0f;
-	//	if (dogRot >= 180.0f) { dogRot = 180.0f; dogAnim = 5; }
-	//	break;
-	//case 5: // Caminata en -Z
-	//	dogPos.z -= 0.0001f;
-	//	if (dogPos.z <= -2.2f) dogAnim = 6;
-	//	break;
-	//case 6: // Giro hacia +X (+90°)
-	//	dogRot += 1.0f;
-	//	if (dogRot >= 270.0f) { dogRot = 270.0f; dogAnim = 7; }
-	//	break;
-	//case 7: // Caminata en +X
-	//	dogPos.x += 0.0001f;
-	//	if (dogPos.x >= 2.2f) dogAnim = 8;
-	//	break;
-	//case 8: // Giro Diagonal hacia el centro (aprox 315 grados)
-	//	dogRot += 1.0f;
-	//	if (dogRot >= 315.0f) { dogRot = 315.0f; dogAnim = 9; }
-	//	break;
-	//case 9: // Tramo Diagonal al origen (0,0,0)
-	//	dogPos.x -= 0.007f;
-	//	dogPos.z += 0.007f;
-	//	if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
-	//		dogAnim = 1;
-	//		head = 0.0f;
-	//	}
-	//	break;
+	case 4: // Giro hacia -Z (-90°)
+		dogRot -= rotationSpeed * deltaTime;
+		head = 25.0f;
+		if (dogRot <= -180.0f) { dogRot = -180.0f; dogAnim = 5; head = 0.0f;}
+		break;
+	case 5: // Caminata en -Z
+		dogPos.z -= 0.001f;
+		if (dogPos.z <= -2.2f) dogAnim = 6;
+		break;
+	case 6: // Giro hacia +X (-90°)
+		dogRot -= rotationSpeed * deltaTime;
+		head = 25.0f;
+		if (dogRot <= -270.0f) { dogRot = -270.0f; dogAnim = 7; head = 0.0f;}
+		break;
+	case 7: // Caminata en +X
+		dogPos.x += 0.001f;
+		if (dogPos.x >= 2.2f) dogAnim = 8;
+		break;
+	case 8: // Giro Diagonal hacia el centro (-135°)
+		dogRot -= rotationSpeed * deltaTime;
+		head = 25.0f;
+		if (dogRot <= -415.0f) { dogRot <= -415.0f; dogAnim = 9; head = 0.0f;}
+		break;
+	case 9: // Tramo Diagonal al origen (0,0,0)
+		dogPos.x -= 0.001f;
+		dogPos.z += 0.001f;
+		//Giro hacia +Z (+45°)
+		if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
+			dogRot -= rotationSpeed * deltaTime;
+			head = 25.0f;
+			if (dogRot <= -360.0f) {dogRot = 0.0f; dogAnim = 1; head = 0.0f;}
+		}
+		break;
 	}
-	//if (dogPos.z <= 2.2) {
-	//	if (dogAnim == 1) {//Estado de Animación: Caminar 
-			//if (!step) {//Estado Falso
-			//	RLegs += 0.03f;
-			//	FLegs += 0.03f;
-			//	head += 0.03f;
-			//	tail += 0.03f;
-			//	if (RLegs > 15.0f) {//Condition
-			//		step = true;
-			//	}
-			//}
-			//else {
-			//	RLegs -= 0.03f;
-			//	FLegs -= 0.03f;
-			//	head -= 0.03f;
-			//	tail -= 0.03f;
-			//	if (RLegs < -15.0f) {//Condition
-			//		step = false;
-			//	}
-	//		}
-	//		dogPos.z += 0.0001;
-	//		printf("%f", RLegs);
-	//	}
-	//}
-	//else {
-	//	dogAnim = 0;
-	//}
+	
 }
 	
 
