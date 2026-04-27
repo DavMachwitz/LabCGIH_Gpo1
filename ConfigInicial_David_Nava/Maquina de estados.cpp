@@ -1,4 +1,4 @@
-//Previo 11							Nava Benítez David Emilio
+//Practica 11						Nava Benítez David Emilio
 //27/04/2026						320291599
 #include <iostream>
 #include <cmath>
