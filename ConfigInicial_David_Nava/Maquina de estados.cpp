@@ -107,12 +107,13 @@ float rotBall = 0.0f;
 bool AnimBall = false;
 bool AnimDog = false;
 float rotDog = 0.0f;
-int dogAnim = 0;
 float FLegs = 0.0f;
 float RLegs = 0.0f;
 float head = 0.0f;
 float tail = 0.0f;
 glm::vec3 dogPos (0.0f,0.0f,0.0f);
+int dogAnim = 0;
+float anguloVuelta;
 float dogRot = 0.0f;
 bool step = false;
 
@@ -529,33 +530,102 @@ void Animation() {
 		rotDog -= 0.6f;
 		//printf("%f", rotBall);
 	}
-	if (dogPos.z <= 2.2) {
-		if (dogAnim == 1) {//Estado de Animación: Caminar 
-			if (!step) {//Estado Falso
-				RLegs += 0.03f;
-				FLegs += 0.03f;
-				head += 0.03f;
-				tail += 0.03f;
-				if (RLegs > 15.0f) {//Condition
-					step = true;
-				}
+	if (dogAnim == 1 || dogAnim == 3 || dogAnim == 5 || dogAnim == 7 || dogAnim == 9) {
+		if (!step) {//Estado Falso
+			RLegs += 0.03f;
+			FLegs += 0.03f;
+			head += 0.03f;
+			tail += 0.03f;
+			if (RLegs > 15.0f) {//Condition
+				step = true;
 			}
-			else {
-				RLegs -= 0.03f;
-				FLegs -= 0.03f;
-				head -= 0.03f;
-				tail -= 0.03f;
-				if (RLegs < -15.0f) {//Condition
-					step = false;
-				}
+		}
+		else {
+			RLegs -= 0.03f;
+			FLegs -= 0.03f;
+			head -= 0.03f;
+			tail -= 0.03f;
+			if (RLegs < -15.0f) {//Condition
+				step = false;
 			}
-			dogPos.z += 0.0001;
-			printf("%f", RLegs);
 		}
 	}
 	else {
-		dogAnim = 0;
+		RLegs = 0.0f;
+		FLegs = 0.0f;
+		head = 0.0f;
+		tail = 0.0f;
 	}
+	switch (dogAnim) {
+	case 1: //caminata en +Z
+			dogPos.z += 0.0001;
+			if (dogPos.z >= 2.2f) dogAnim = 2;
+			break;
+	case 2://Vuelta hacia -X (+90°)
+		dogRot -= 1.0f;
+		head = 10.0f;
+		if (dogRot >= -90.0f) {dogRot = -90.0f; dogAnim = 3;}
+		break;
+	case 3://caminata en -X
+		dogPos.x -= 0.0001f;
+		if (dogPos.x <= -2.2f) dogAnim = 4;
+		break;
+	//case 4: // Giro hacia -Z (+90°)
+	//	dogRot += 1.0f;
+	//	if (dogRot >= 180.0f) { dogRot = 180.0f; dogAnim = 5; }
+	//	break;
+	//case 5: // Caminata en -Z
+	//	dogPos.z -= 0.0001f;
+	//	if (dogPos.z <= -2.2f) dogAnim = 6;
+	//	break;
+	//case 6: // Giro hacia +X (+90°)
+	//	dogRot += 1.0f;
+	//	if (dogRot >= 270.0f) { dogRot = 270.0f; dogAnim = 7; }
+	//	break;
+	//case 7: // Caminata en +X
+	//	dogPos.x += 0.0001f;
+	//	if (dogPos.x >= 2.2f) dogAnim = 8;
+	//	break;
+	//case 8: // Giro Diagonal hacia el centro (aprox 315 grados)
+	//	dogRot += 1.0f;
+	//	if (dogRot >= 315.0f) { dogRot = 315.0f; dogAnim = 9; }
+	//	break;
+	//case 9: // Tramo Diagonal al origen (0,0,0)
+	//	dogPos.x -= 0.007f;
+	//	dogPos.z += 0.007f;
+	//	if (dogPos.x <= 0.0f && dogPos.z >= 0.0f) {
+	//		dogAnim = 1;
+	//		head = 0.0f;
+	//	}
+	//	break;
+	}
+	//if (dogPos.z <= 2.2) {
+	//	if (dogAnim == 1) {//Estado de Animación: Caminar 
+			//if (!step) {//Estado Falso
+			//	RLegs += 0.03f;
+			//	FLegs += 0.03f;
+			//	head += 0.03f;
+			//	tail += 0.03f;
+			//	if (RLegs > 15.0f) {//Condition
+			//		step = true;
+			//	}
+			//}
+			//else {
+			//	RLegs -= 0.03f;
+			//	FLegs -= 0.03f;
+			//	head -= 0.03f;
+			//	tail -= 0.03f;
+			//	if (RLegs < -15.0f) {//Condition
+			//		step = false;
+			//	}
+	//		}
+	//		dogPos.z += 0.0001;
+	//		printf("%f", RLegs);
+	//	}
+	//}
+	//else {
+	//	dogAnim = 0;
+	//}
 }
 	
 
