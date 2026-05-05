@@ -113,6 +113,7 @@ float head = 0.0f;
 float tail = 0.0f;
 float rightLeg = 0.0f;
 float rotDogX = 0.0f;
+float rotDogZ = 0.0f;
 
 
 
@@ -148,6 +149,9 @@ typedef struct _frame {
 	float rotDogX;
 	float rotDogXInc;
 
+	float rotDogZ;
+	float rotDogZInc;
+
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
@@ -173,6 +177,7 @@ void saveFrame(void)
 
 	KeyFrame[FrameIndex].rightLeg = rightLeg;
 	KeyFrame[FrameIndex].rotDogX = rotDogX;
+	KeyFrame[FrameIndex].rotDogZ = rotDogZ;
 
 	FrameIndex++;
 }
@@ -193,6 +198,7 @@ void resetElements(void)
 
 	rightLeg = KeyFrame[0].rightLeg;
 	rotDogX = KeyFrame[0].rotDogX;
+	rotDogZ = KeyFrame[0].rotDogZ;
 
 }
 void interpolation(void)
@@ -212,6 +218,7 @@ void interpolation(void)
 
 	KeyFrame[playIndex].rightLegInc = (KeyFrame[playIndex + 1].rightLeg - KeyFrame[playIndex].rightLeg) / i_max_steps;
 	KeyFrame[playIndex].rotDogXInc = (KeyFrame[playIndex + 1].rotDogX - KeyFrame[playIndex].rotDogX) / i_max_steps;
+	KeyFrame[playIndex].rotDogZInc = (KeyFrame[playIndex + 1].rotDogZ - KeyFrame[playIndex].rotDogZ) / i_max_steps;
 
 }
 
@@ -310,6 +317,12 @@ int main()
 
 		KeyFrame[i].rotDog = 0;
 		KeyFrame[i].rotDogInc = 0;
+
+		KeyFrame[i].rotDogX = 0;
+		KeyFrame[i].rotDogXInc = 0;
+
+		KeyFrame[i].rotDogZ = 0;
+		KeyFrame[i].rotDogZInc = 0;
 	}
 
 
@@ -541,105 +554,30 @@ int main()
 // Moves/alters the camera positions based on user input
 void DoMovement()
 {
-	if (keys[GLFW_KEY_O]) {
-		rightLeg += 0.01f;
-	}
-	if (keys[GLFW_KEY_P]) {
-		rightLeg -= 0.01f;
-	}
-	if (keys[GLFW_KEY_Z]) rotDogX += 0.01f;
-	if (keys[GLFW_KEY_X]) rotDogX -= 0.01f; 
+	if (keys[GLFW_KEY_0]) rotDog += 0.01f;
+	if (keys[GLFW_KEY_1]) rotDog -= 0.01f;
+	if (keys[GLFW_KEY_2]) rotDogX += 0.01f;
+	if (keys[GLFW_KEY_3]) rotDogX -= 0.01f;
+	if (keys[GLFW_KEY_4]) rotDogZ += 0.01f;
+	if (keys[GLFW_KEY_5]) rotDogZ -= 0.01f;
 	//Dog Controls
-	if (keys[GLFW_KEY_4])
-	{
+	if (keys[GLFW_KEY_6]) head += 0.01f;
+	if (keys[GLFW_KEY_7]) head -= 0.01f;
+	if (keys[GLFW_KEY_8]) tail += 0.01f;
+	if (keys[GLFW_KEY_9]) tail -= 0.01f;
+	if (keys[GLFW_KEY_E]) FLegs += 0.01f;
+	if (keys[GLFW_KEY_R]) FLegs -= 0.01f;
+	if (keys[GLFW_KEY_T]) RLegs += 0.01f;
+	if (keys[GLFW_KEY_Y]) RLegs -= 0.01f;
+	if (keys[GLFW_KEY_U]) rightLeg += 0.01f;
+	if (keys[GLFW_KEY_I]) rightLeg -= 0.01f;
 
-		head += 0.01f;
-
-	}
-	if (keys[GLFW_KEY_5])
-	{
-
-		head -= 0.01f;
-
-	}
-	if (keys[GLFW_KEY_6])
-	{
-
-		tail += 0.01f;
-
-	}
-	if (keys[GLFW_KEY_7])
-	{
-
-		tail -= 0.01f;
-
-	}
-	if (keys[GLFW_KEY_8])
-	{
-
-		FLegs += 0.01f;
-
-	}
-	if (keys[GLFW_KEY_9])
-	{
-
-		FLegs -= 0.01f;
-
-	}
-	if (keys[GLFW_KEY_1])
-	{
-
-		RLegs += 0.01f;
-
-	}
-	if (keys[GLFW_KEY_0])
-	{
-
-		RLegs -= 0.01f;
-
-	}
-	if (keys[GLFW_KEY_2])
-	{
-		
-			rotDog += 0.01f;
-
-	}
-
-	if (keys[GLFW_KEY_3])
-	{
-		
-			rotDog -= 0.01f;
-
-	}
-			
-	if (keys[GLFW_KEY_H])
-	{
-		dogPosZ += 0.001;
-	}
-
-	if (keys[GLFW_KEY_Y])
-	{
-		dogPosZ -= 0.001;
-	}
-
-	if (keys[GLFW_KEY_G])
-	{
-		dogPosX -= 0.001;
-	}
-
-	if (keys[GLFW_KEY_J])
-	{
-		dogPosX += 0.001;
-	}
-
-	if (keys[GLFW_KEY_R])
-	{
-		dogPosY += 0.0001f; 
-	}
-	if (keys[GLFW_KEY_F])
-	{
-		dogPosY -= 0.0001f;
-	}
+	if (keys[GLFW_KEY_O]) dogPosZ += 0.001;
+	if (keys[GLFW_KEY_P]) dogPosZ -= 0.001;
+	if (keys[GLFW_KEY_F]) dogPosX -= 0.001;
+	if (keys[GLFW_KEY_G]) dogPosX += 0.001;
+	if (keys[GLFW_KEY_H]) dogPosY += 0.0001f; 
+	if (keys[GLFW_KEY_J]) dogPosY -= 0.0001f;
 
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
@@ -668,40 +606,10 @@ void DoMovement()
 
 
 	}
-
-	if (keys[GLFW_KEY_T])
-	{
-		pointLightPositions[0].x += 0.001f;
-	}
-	if (keys[GLFW_KEY_G])
-	{
-		pointLightPositions[0].x -= 0.001f;
-	}
-
-	if (keys[GLFW_KEY_Y])
-	{
-		pointLightPositions[0].y += 0.001f;
-	}
-
-	if (keys[GLFW_KEY_H])
-	{
-		pointLightPositions[0].y -= 0.001f;
-	}
-	if (keys[GLFW_KEY_U])
-	{
-		pointLightPositions[0].z -= 0.001f;
-	}
-	if (keys[GLFW_KEY_J])
-	{
-		pointLightPositions[0].z += 0.001f;
-	}
-	
 }
-
 // Is called whenever a key is pressed/released via GLFW
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-
 	if (keys[GLFW_KEY_L])
 	{
 		if (play == false && (FrameIndex > 1))
@@ -811,6 +719,7 @@ void Animation() {
 
 			rightLeg += KeyFrame[playIndex].rightLegInc;
 			rotDogX += KeyFrame[playIndex].rotDogXInc;
+			rotDogZ += KeyFrame[playIndex].rotDogZInc;
 
 
 			i_curr_steps++;
