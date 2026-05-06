@@ -1,8 +1,9 @@
-//Previo 12								Nava Benítez David Emilio
-//1/05/2026								320291599
+//Practica 12						Nava Benítez David Emilio
+//5/05/2026							320291599
 
 #include <iostream>
 #include <cmath>
+#include <fstream>
 
 // GLEW
 #include <GL/glew.h>
@@ -120,7 +121,7 @@ float rotDogZ = 0.0f;
 //KeyFrames
 float dogPosX , dogPosY , dogPosZ  ;
 
-#define MAX_FRAMES 9
+#define MAX_FRAMES 80
 int i_max_steps = 600	;
 int i_curr_steps = 0;
 typedef struct _frame {
@@ -221,9 +222,71 @@ void interpolation(void)
 	KeyFrame[playIndex].rotDogZInc = (KeyFrame[playIndex + 1].rotDogZ - KeyFrame[playIndex].rotDogZ) / i_max_steps;
 
 }
+void saveFramesToFile(void)
+{
+	std::ofstream file("animacion.txt", std::ios::out);
+	if (file.is_open())
+	{
+		file << FrameIndex << std::endl;
 
+		for (int i = 0; i < FrameIndex; i++)
+		{
+			file << KeyFrame[i].dogPosX << " " << KeyFrame[i].dogPosY << " " << KeyFrame[i].dogPosZ << " "
+				<< KeyFrame[i].rotDog << " " << KeyFrame[i].head << " " << KeyFrame[i].FLegs << " "
+				<< KeyFrame[i].RLegs << " " << KeyFrame[i].tail << " " << KeyFrame[i].rightLeg << " "
+				<< KeyFrame[i].rotDogX << " " << KeyFrame[i].rotDogZ << std::endl;
+		}
+		file.close();
+		std::cout << "Animacion guardada exitosamente." << std::endl;
 
+		FrameIndex = 0;
+		playIndex = 0;
+		i_curr_steps = 0;
+		play = false;
+	}
+	else {
+		std::cout << "No se pudo abrir el archivo para guardar." << std::endl;
+	}
+}
 
+void loadFramesFromFile(void)
+{
+	std::ifstream file("animacion.txt", std::ios::in);
+	if (file.is_open())
+	{
+		file >> FrameIndex; // Leemos los frames
+		for (int i = 0; i < FrameIndex; i++)
+		{
+			file >> KeyFrame[i].dogPosX >> KeyFrame[i].dogPosY >> KeyFrame[i].dogPosZ >>
+				KeyFrame[i].rotDog >> KeyFrame[i].head >> KeyFrame[i].FLegs >>
+				KeyFrame[i].RLegs >> KeyFrame[i].tail >> KeyFrame[i].rightLeg >>
+				KeyFrame[i].rotDogX >> KeyFrame[i].rotDogZ;
+		}
+		file.close();
+		std::cout << "Animacion cargada: " << FrameIndex << " frames." << std::endl;
+	}
+	else {
+		std::cout << "No hay archivo de animacion previo." << std::endl;
+	}
+}
+
+void startAnimation(void)
+{
+	
+	if (FrameIndex > 1)
+	{
+		playIndex = 0;
+		i_curr_steps = 0;
+		resetElements();   
+		interpolation();   
+		play = true;       
+		std::cout << "Iniciando animacion..." << std::endl;
+	}
+	else
+	{
+		std::cout << "No hay suficientes frames para reproducir (minimo 2)." << std::endl;
+	}
+}
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -240,7 +303,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion keyFrames - Previo12_David_Nava", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion keyFrames - Practica12_David_Nava", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -324,7 +387,7 @@ int main()
 		KeyFrame[i].rotDogZ = 0;
 		KeyFrame[i].rotDogZInc = 0;
 	}
-
+	loadFramesFromFile();
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO,EBO;
@@ -458,6 +521,7 @@ int main()
 		modelTemp= model = glm::translate(model, glm::vec3(dogPosX,dogPosY,dogPosZ));
 		modelTemp= model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelTemp = model = glm::rotate(model, glm::radians(rotDogX), glm::vec3(1.0f, 0.0f, 0.0f));
+		modelTemp = model = glm::rotate(model, glm::radians(rotDogZ), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		DogBody.Draw(lightingShader);
 		//Head
@@ -498,15 +562,15 @@ int main()
 		B_RightLeg.Draw(lightingShader); 
 
 
-		model = glm::mat4(1);
-		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	    Ball.Draw(lightingShader); 
-		glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		//model = glm::mat4(1);
+		//glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
+		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	 //   Ball.Draw(lightingShader); 
+		//glDisable(GL_BLEND);  //Desactiva el canal alfa 
 		glBindVertexArray(0);
 	
 
@@ -610,24 +674,37 @@ void DoMovement()
 // Is called whenever a key is pressed/released via GLFW
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-	if (keys[GLFW_KEY_L])
+	if(key == GLFW_KEY_L && action == GLFW_PRESS)
 	{
+
 		if (play == false && (FrameIndex > 1))
 		{
-
 			resetElements();
-			//First Interpolation				
 			interpolation();
-
 			play = true;
 			playIndex = 0;
 			i_curr_steps = 0;
+			std::cout << "Reproduciendo con L..." << std::endl;
 		}
-		else
+		else if (play == true)
 		{
 			play = false;
+			std::cout << "Animacion detenida (L)." << std::endl;
 		}
+	}
 
+	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
+	{
+		if (!play && (FrameIndex > 1))
+		{
+			startAnimation();
+			std::cout << "Reproduciendo con ENTER..." << std::endl;
+		}
+		else if (play == true)
+		{
+			play = false;
+			std::cout << "Animacion detenida (ENTER)." << std::endl;
+		}
 	}
 
 	if (keys[GLFW_KEY_K])
@@ -638,7 +715,10 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		}
 
 	}
-
+	if (key == GLFW_KEY_N && action == GLFW_PRESS)
+	{
+		saveFramesToFile();
+	}
 
 
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
